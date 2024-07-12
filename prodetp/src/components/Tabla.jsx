@@ -5,9 +5,7 @@ import { manejarClick } from "../utils/manejarClick";
 
 function Tabla() {
   const [matches, setMatches] = useState([]);
-
-  //const [puntos, setPuntos] = useState([]);
-  // {id: idPartido, equipoVal1: equipo1, equipoVal1: equipo2,}
+  const [acumulador, setAcumulador] = useState(0);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -29,6 +27,7 @@ function Tabla() {
       ...partidos[partido],
       puntosEquipo1,
       puntosEquipo2,
+
       puntos: manejarClick(
         +puntosEquipo1,
         +puntosEquipo2,
@@ -36,32 +35,24 @@ function Tabla() {
         partidos[partido].equipo2_goles
       ),
     };
-    console.log(partidos[partido]);
-    console.log(
-      +puntosEquipo1,
-      +puntosEquipo2,
-      partidos[partido].goals1,
-      partidos[partido].goals2
-    );
+   
     setMatches(partidos);
-    // console.log(partidos[partido])
-    //let contador = 0;
-    console.log(partidos[partido].puntos) 
-    partidos.forEach((partido,index) => (
-        
-        console.log(partidos[index].puntos)));
 
+    let nuevoAcumulador = 0;
+    partidos.forEach((partido) => {
+      if (!isNaN(partido.puntos)) nuevoAcumulador += partido.puntos;
+    });
 
-    //console.log(partidos[partido].puntos);
+    setAcumulador(nuevoAcumulador);
   };
 
-
-  //console.log(matches)
   return (
     <div style={tablaStyle}>
-      <h1>puntos totales </h1>
+      <h1>
+        puntos totales: <span>{acumulador}</span>{" "}
+      </h1>
 
-      {matches.map((match, index) => (
+      {matches.map((match) => (
         <Partido key={match.idPartido} {...match} handleChange={handleChange} />
       ))}
     </div>
@@ -70,7 +61,3 @@ function Tabla() {
 
 export default Tabla;
 
-//Partido llama a funcion handlechange (4 valores) en obj
-// captuar en form los inputs o state equipo 1 etc
-// codear handleCHange
-// calcular los

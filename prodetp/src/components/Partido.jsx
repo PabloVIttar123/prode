@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-const Partido = ({ idPartido, equipo1, goals1, equipo1_img, equipo2, goals2, equipo2_img, handleChange,puntos = 0 }) => {
+const Partido = ({ idPartido, equipo1, goals1, equipo1_img, equipo2, goals2, equipo2_img, handleChange, puntos = 0 }) => {
   const partidoStyle = {
     display: 'flex',
     alignItems: 'center',
@@ -12,7 +12,8 @@ const Partido = ({ idPartido, equipo1, goals1, equipo1_img, equipo2, goals2, equ
     margin: '0 5px'
   };
   const inputStyle = {
-    width: "20px"
+    width: "25px",
+    padding:"5px"
   };
 
   const imgStyle = {
@@ -25,26 +26,28 @@ const Partido = ({ idPartido, equipo1, goals1, equipo1_img, equipo2, goals2, equ
 const [puntosEquipo1, setpuntosEquipo1] = useState(0)
 const [puntosEquipo2, setpuntosEquipo2] = useState(0)
 
-  
+
+const [isReadOnly, setIsReadOnly] = useState(false); // 
   
 
   return (
     <div style={partidoStyle}>
-      
 
      <span style={spanStyle}>{idPartido} </span>
       <img src={equipo1_img} alt={`${equipo1} flag`} style={imgStyle} />
 
       <span style={spanStyle}>{equipo1} </span>
-      <input type="number"  style={inputStyle} onChange={(e) => {setpuntosEquipo1(e.target.value)}} /> 
+      <input type="number" min={0}         readOnly={isReadOnly}
+  style={inputStyle} onChange={(e) => {setpuntosEquipo1(e.target.value)}} /> 
       
       <span style={spanStyle}> vs </span>
       <span style={spanStyle}>{equipo2} </span>
-      <input type="number"   style={inputStyle} onChange={(e) => {setpuntosEquipo2(e.target.value)}} />
+      <input type="number" readOnly={isReadOnly} min={0} style={inputStyle} onChange={(e) => {setpuntosEquipo2(e.target.value)}} />
 
       <img src={equipo2_img} alt={`${equipo2} flag`} style={imgStyle} />
 
       <button onClick={(e) => {
+        setIsReadOnly(true)
          e.preventDefault();
         handleChange({idPartido,puntosEquipo1,puntosEquipo2})} }>Enviar</button>
       <span style={spanStyle}>{puntos} </span>
