@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import createData from "../utils/CreateData";
 import Partido from "./Partido";
 import { manejarClick } from "../utils/manejarClick";
@@ -42,7 +42,7 @@ function Tabla() {
     partidos.forEach((partido) => {
       if (!isNaN(partido.puntos)) nuevoAcumulador += partido.puntos;
     });
-
+console.log(partidos);
     setAcumulador(nuevoAcumulador);
   };
 

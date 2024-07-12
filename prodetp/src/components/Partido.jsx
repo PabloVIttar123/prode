@@ -48,7 +48,7 @@ const [isReadOnly, setIsReadOnly] = useState(false); //
 
       <button onClick={(e) => {
         setIsReadOnly(true)
-         e.preventDefault();
+        e.preventDefault();
         handleChange({idPartido,puntosEquipo1,puntosEquipo2})} }>Enviar</button>
       <span style={spanStyle}>{puntos} </span>
 
